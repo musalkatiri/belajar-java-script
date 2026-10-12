@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayo Menghitung Bersama👇🏻</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 32px 20px;
+            display: grid;
+            place-items: center;
+            background-color: #e9e1d0;
+            background-image: radial-gradient(#c7b99f 0.7px, transparent 0.7px);
+            background-size: 18px 18px;
+            color: #34372d;
+            font-family: Georgia, "Times New Roman", serif;
+        }
+
+        .kalkulator {
+            position: relative;
+            width: min(100%, 480px);
+            padding: 32px;
+            overflow: hidden;
+            border: 3px double #8f8066;
+            border-radius: 3px;
+            background: #f8f2e6;
+            box-shadow: 8px 8px 0 #b9a98c;
+            animation: masuk 700ms ease-out both;
+        }
+
+        .kalkulator::before {
+            position: absolute;
+            inset: 9px;
+            border: 1px solid rgb(143 128 102 / 35%);
+            content: "";
+            pointer-events: none;
+        }
+
+        .kalkulator::after {
+            position: absolute;
+            top: 23px;
+            right: 24px;
+            width: 14px;
+            height: 14px;
+            border: 3px double #a45136;
+            border-radius: 50%;
+            content: "";
+        }
+
+        .tag {
+            position: relative;
+            display: inline-block;
+            margin: 0 0 14px;
+            padding: 6px 10px;
+            border: 1px solid #8b7454;
+            border-radius: 2px;
+            background: #e6d6b8;
+            color: #675338;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            max-width: 360px;
+            color: #3f4938;
+            font-size: clamp(1.8rem, 6vw, 2.25rem);
+            font-weight: 700;
+            line-height: 1.12;
+        }
+
+        .deskripsi {
+            margin: 0 0 24px;
+            color: #766d5e;
+            line-height: 1.5;
+        }
+
+        .form-input {
+            display: grid;
+            gap: 16px;
+            animation: muncul 700ms 150ms ease-out both;
+        }
+
+        label {
+            display: grid;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #b7a789;
+            border-radius: 2px;
+            background: #fffaf0;
+            color: #34372d;
+            font: inherit;
+            transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+        }
+
+        input:focus {
+            outline: 3px solid rgb(112 128 92 / 20%);
+            border-color: #70805c;
+            background: #fffdf8;
+        }
+
+        .tombol-hitung {
+            width: 100%;
+            margin-top: 20px;
+            padding: 13px 16px;
+            border: 1px solid #713b2a;
+            border-radius: 2px;
+            background: #8a4c35;
+            color: #fffaf0;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            transition: background 180ms ease, transform 180ms ease;
+        }
+
+        .tombol-hitung:hover {
+            transform: translateY(-2px);
+            background: #713b2a;
+        }
+
+        .tombol-hitung:focus-visible {
+            outline: 3px solid rgb(112 128 92 / 40%);
+            outline-offset: 3px;
+        }
+
+        .tombol-hitung:active {
+            transform: translateY(0);
+        }
+
+        .hasil {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+            animation: muncul 700ms 300ms ease-out both;
+        }
+
+        .hasil-item {
+            padding: 16px;
+            border: 1px solid #b3a385;
+            border-radius: 2px;
+            background: #e4e7d7;
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
+
+        .hasil-item:last-child {
+            background: #f0dfcd;
+        }
+
+        .hasil.animasi-jawaban .hasil-item {
+            animation: jawabanKeluar 500ms ease-out both;
+        }
+
+        .hasil.animasi-jawaban .hasil-item:last-child {
+            animation-delay: 100ms;
+        }
+
+        .hasil-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgb(67 57 41 / 12%);
+        }
+
+        .hasil-item p {
+            margin: 0 0 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .hasil-item output {
+            color: #8a4c35;
+            font-size: 1.35rem;
+            font-weight: 900;
+        }
+
+        .satuan {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        @keyframes masuk {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes muncul {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes jawabanKeluar {
+            from {
+                opacity: 0.5;
+                transform: translateY(10px) scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .kalkulator {
+                padding: 24px;
+            }
+
+            .hasil {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="kalkulator">
+        <p class="tag">Buku catatan · Geometri</p>
+        <h1>Luas &amp; Keliling Persegi Panjang</h1>
+        <p class="deskripsi">Ayo hitung luas dan keliling persegi panjang!</p>
+
+        <form class="form-input" id="form-hitung">
+            <label for="panjang">Panjang (m)
+                <input id="panjang" type="number" min="0" step="any" required>
+            </label>
+            <label for="lebar">Lebar (m)
+                <input id="lebar" type="number" min="0" step="any" required>
+            </label>
+            <button class="tombol-hitung" type="submit">Ayo hitung!</button>
+        </form>
+
+        <section class="hasil" aria-live="polite" aria-label="Hasil perhitungan">
+            <div class="hasil-item">
+                <p>Luas</p>
+                <output id="luas">—</output> <span class="satuan">m<sup>2</sup></span>
+            </div>
+            <div class="hasil-item">
+                <p>Keliling</p>
+                <output id="keliling">—</output> <span class="satuan">m</span>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const inputPanjang = document.getElementById("panjang");
+        const inputLebar = document.getElementById("lebar");
+        const outputLuas = document.getElementById("luas");
+        const outputKeliling = document.getElementById("keliling");
+        const formHitung = document.getElementById("form-hitung");
+        const bagianHasil = document.querySelector(".hasil");
+
+        function hapusHasil() {
+            outputLuas.textContent = "—";
+            outputKeliling.textContent = "—";
+            bagianHasil.classList.remove("animasi-jawaban");
+        }
+
+        function hitung() {
+            let panjang = inputPanjang.valueAsNumber;
+            let lebar = inputLebar.valueAsNumber;
+
+            if (!Number.isFinite(panjang) || !Number.isFinite(lebar)) {
+                hapusHasil();
+                return;
+            }
+
+            let luas = panjang * lebar;
+            let keliling = 2 * (panjang + lebar);
+
+            outputLuas.textContent = luas;
+            outputKeliling.textContent = keliling;
+        }
+
+        formHitung.addEventListener("submit", function (event) {
+            event.preventDefault();
+            hitung();
+            bagianHasil.classList.remove("animasi-jawaban");
+            requestAnimationFrame(function () {
+                bagianHasil.classList.add("animasi-jawaban");
+            });
+        });
+
+        [inputPanjang, inputLebar].forEach(function (input) {
+            input.addEventListener("input", function () {
+                if (inputPanjang.value === "" || inputLebar.value === "") {
+                    hapusHasil();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
